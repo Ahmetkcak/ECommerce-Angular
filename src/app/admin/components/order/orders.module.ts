@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OrderComponent } from './orders.component';
@@ -9,7 +10,10 @@ import { OrderComponent } from './orders.component';
     OrderComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule.forChild([
+      {path:"",component:OrderComponent}
+    ])
   ]
 })
 export class OrderModule { }
