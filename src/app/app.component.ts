@@ -1,3 +1,4 @@
+import { CustomToastrService, ToastrMessageType, ToastrPosition } from './services/ui/custom-toastr.service';
 import { Component } from '@angular/core';
 declare var $:any 
 
@@ -8,4 +9,11 @@ declare var $:any
 })
 export class AppComponent {
   title = 'E-Commerce';
+
+  constructor(private toastrService:CustomToastrService){
+    this.toastrService.message("Merhaba","Sana",{
+      messageType:ToastrMessageType.Error,
+      position:ToastrPosition.TopFullWidth
+    });
+  }
 }
