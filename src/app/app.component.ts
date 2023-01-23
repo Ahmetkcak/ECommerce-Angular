@@ -10,10 +10,5 @@ declare var $:any
 export class AppComponent {
   title = 'E-Commerce';
 
-  constructor(private toastrService:CustomToastrService){
-    this.toastrService.message("Merhaba","Sana",{
-      messageType:ToastrMessageType.Error,
-      position:ToastrPosition.TopFullWidth
-    });
-  }
+  constructor(){}
 }
