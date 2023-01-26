@@ -1,3 +1,4 @@
+import { HttpClientService } from './../../../services/common/http-client.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent } from './../../../base/base.component';
 import { Component, OnInit } from '@angular/core';
@@ -9,11 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductsComponent extends BaseComponent implements OnInit {
 
-  constructor(spinner:NgxSpinnerService) {
+  constructor(spinner:NgxSpinnerService,private httClientService:HttpClientService) {
     super(spinner);
    }
 
   ngOnInit(): void {
+   
   }
 
 }
