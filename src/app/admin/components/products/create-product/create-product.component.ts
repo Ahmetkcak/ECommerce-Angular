@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter,Output } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { Add_Product } from 'src/app/contracts/Add_Product';
@@ -19,6 +19,8 @@ export class CreateProductComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  @Output() createdProduct : EventEmitter<Add_Product> = new EventEmitter();
+
   addProduct(name:HTMLInputElement,price:HTMLInputElement,stock:HTMLInputElement){
     this.showSpinner(SpinnerType.BallAtom)
     const addProduct:Add_Product = new Add_Product();
@@ -33,6 +35,7 @@ export class CreateProductComponent extends BaseComponent implements OnInit {
         messageType:MessageType.Success,
         position:Position.BottomRight
       })
+      this.createdProduct.emit(addProduct);
     }, errorMessage => {
       this.alertify.message(errorMessage,{
         dismissOthers : true,
