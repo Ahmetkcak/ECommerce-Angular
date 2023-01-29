@@ -6,6 +6,7 @@ import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { List_Product } from 'src/app/contracts/list_products';
 import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
 import { ProductService } from 'src/app/services/common/models/product.service';
+declare var $:any
 
 @Component({
   selector: 'app-list-products',
@@ -18,7 +19,7 @@ export class ListProductsComponent extends BaseComponent implements OnInit{
     super(spinner)
    }
 
-  displayedColumns: string[] = ['name', 'stock','price', 'createdDate', 'updatedDate'];
+  displayedColumns: string[] = ['name', 'stock','price', 'createdDate', 'updatedDate','update','delete'];
   dataSource :MatTableDataSource<List_Product> = null;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -44,4 +45,9 @@ export class ListProductsComponent extends BaseComponent implements OnInit{
 
   }
 
+  // delete(id,event){
+  //   alert(id)
+  //   const img:HTMLImageElement = event.srcElement;
+  //   console.log(img);
+  // }
 }
