@@ -2,7 +2,7 @@ import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
-import { FileUploadDialogState } from 'src/app/dialogs/file-upload-dialog/file-upload-dialog.component';
+import { FileUploadDialogComponent, FileUploadDialogState } from 'src/app/dialogs/file-upload-dialog/file-upload-dialog.component';
 import { AlertifyService, MessageType, Position } from '../../admin/alertify.service';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../ui/custom-toastr.service';
 import { DialogService } from '../dialog.service';
@@ -35,7 +35,7 @@ export class FileUploadComponent {
     }
 
     this.dialogService.openDialog({
-      componentType:FileUploadComponent,
+      componentType:FileUploadDialogComponent,
       data:FileUploadDialogState.Yes,
       afterClosed:()=>{
         this.httpClientService.post({
@@ -52,7 +52,7 @@ export class FileUploadComponent {
               {
                 dismissOthers: true,
                 messageType: MessageType.Success,
-                position: Position.TopRight
+                position: Position.BottomRight
               })
           } else {
             this.customToastrService.message(message, "Başarılı.", {
@@ -71,12 +71,12 @@ export class FileUploadComponent {
               {
                 dismissOthers: true,
                 messageType: MessageType.Error,
-                position: Position.TopRight
+                position: Position.BottomRight
               })
           } else {
             this.customToastrService.message(message, "Başarsız.", {
               messageType: ToastrMessageType.Error,
-              position: ToastrPosition.TopRight
+              position: ToastrPosition.BottomRight
             })
           }
     
