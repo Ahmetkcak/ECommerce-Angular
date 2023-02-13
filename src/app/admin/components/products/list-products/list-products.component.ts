@@ -4,7 +4,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { List_Product } from 'src/app/contracts/list_products';
+import { SelectProductImageDialogComponent } from 'src/app/dialogs/select-product-image-dialog/select-product-image-dialog.component';
 import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
+import { DialogService } from 'src/app/services/common/dialog.service';
 import { ProductService } from 'src/app/services/common/models/product.service';
 declare var $:any
 
@@ -15,11 +17,11 @@ declare var $:any
 })
 export class ListProductsComponent extends BaseComponent implements OnInit{
 
-  constructor(private productService:ProductService,spinner :NgxSpinnerService,private alertif:AlertifyService) {
+  constructor(private productService:ProductService,spinner :NgxSpinnerService,private alertif:AlertifyService,private dialogService:DialogService) {
     super(spinner)
    }
 
-  displayedColumns: string[] = ['name', 'stock','price', 'createdDate', 'updatedDate','update','delete'];
+  displayedColumns: string[] = ['name', 'stock','price', 'createdDate', 'updatedDate','photos','update','delete'];
   dataSource :MatTableDataSource<List_Product> = null;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -28,7 +30,7 @@ export class ListProductsComponent extends BaseComponent implements OnInit{
     const allProducts: { totalCount: number; products: List_Product[] } = await this.productService.listProducts(this.paginator ? this.paginator.pageIndex : 0, this.paginator ? this.paginator.pageSize : 5, () => this.hideSpinner(SpinnerType.BallAtom), errorMessage => this.alertif.message(errorMessage, {
       dismissOthers: true,
       messageType: MessageType.Error,
-      position: Position.TopRight
+      position: Position.BottomRight
     }))
     this.dataSource = new MatTableDataSource<List_Product>(allProducts.products);
     this.paginator.length = allProducts.totalCount;
@@ -45,9 +47,13 @@ export class ListProductsComponent extends BaseComponent implements OnInit{
 
   }
 
-  // delete(id,event){
-  //   alert(id)
-  //   const img:HTMLImageElement = event.srcElement;
-  //   console.log(img);
-  // }
+  addProductsImage(id:number){
+    this.dialogService.openDialog({
+      componentType:SelectProductImageDialogComponent,
+      data:id,
+      options:{
+        width:"1400px"
+      }
+    })
+  }
 }
