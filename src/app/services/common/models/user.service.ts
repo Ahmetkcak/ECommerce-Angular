@@ -24,11 +24,11 @@ export class UserService {
     return await firstValueFrom(observable) as Add_User
   }
 
-  async login(userNameOrEmail: string, password: string, callBackFunction?: () => void): Promise<void> {
+  async login(UsernameOrMail: string, Password: string, callBackFunction?: () => void): Promise<void> {
     const observable: Observable<any | TokenResponse> = this.httpClientService.post<any | TokenResponse>({
       controller: "users",
       action: "login"
-    }, {userNameOrEmail,password})
+    }, {UsernameOrMail,Password})
 
     const tokenResponse : TokenResponse = await firstValueFrom(observable) as TokenResponse;
     if(tokenResponse){
