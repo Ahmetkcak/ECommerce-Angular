@@ -24,11 +24,27 @@ export class UserAuthService {
     const tokenResponse : TokenResponse = await firstValueFrom(observable) as TokenResponse;
     if(tokenResponse){
       localStorage.setItem("accessToken",tokenResponse.token.accessToken);
+      localStorage.setItem("refreshToken", tokenResponse.token.refreshToken);
       this.toastr.message("Kullanıcı girişi başarıyla gerçekleşti","Giriş başarılı",{
         messageType:ToastrMessageType.Success,
         position:ToastrPosition.BottomRight
       })
     }
+    callBackFunction();
+  }
+
+  async refreshTokenLogin(refreshToken : string,callBackFunction? : () => void) : Promise<any>{
+    const observable : Observable<any | TokenResponse> = this.httpClientService.post({
+      controller:"auth",
+      action:"refreshtokenlogin"
+    },{refreshToken:refreshToken});
+
+    const tokenResponse : TokenResponse = await firstValueFrom(observable) as TokenResponse;
+    if(tokenResponse){
+      localStorage.setItem("accessToken",tokenResponse.token.accessToken);
+      localStorage.setItem("refreshToken", tokenResponse.token.refreshToken);
+    }
+
     callBackFunction();
   }
 
@@ -42,6 +58,7 @@ export class UserAuthService {
 
     if (tokenResponse) {
       localStorage.setItem("accessToken", tokenResponse.token.accessToken);
+      localStorage.setItem("refreshToken", tokenResponse.token.refreshToken);
 
       this.toastr.message("Google üzerinden giriş başarılı.", "Giriş Başarılı", {
         messageType: ToastrMessageType.Success,
