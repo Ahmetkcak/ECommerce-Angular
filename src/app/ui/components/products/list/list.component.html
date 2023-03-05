@@ -1,0 +1,29 @@
+<div class="row">
+  <div
+    class="card mt-4"
+    style="width: 18rem; float: left; margin-left: 1rem"
+    *ngFor="let product of produtcs"
+  >
+    <img
+      src="../../../../../assets/productImage.png"
+      class="card-img-top"
+      alt="..."
+    />
+    <div class="card-body">
+      <h2 class="card-title">{{ product.name }}</h2>
+      <p class="card-text">
+        Price : {{ product.price | currency : "₺" }} <br />
+        Stock : {{ product.stock }}
+      </p>
+      <a href="#" class="btn btn-primary">Add to cart</a>
+    </div>
+  </div>
+  <nav aria-label="Page navigation example" class="mt-4">
+    <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="#" >{{currentPageNo}} / {{totalPageCount}}</a></li>
+      <li class="page-item"><a class="page-link" href="#" [routerLink]="['/products', currentPageNo -1 <=0 ? 1 :currentPageNo-1]">Previous</a></li>
+      <li class="page-item" *ngFor="let pageNo of pageList" routerLinkActive="active"><a class="page-link" href="#" [routerLink]="['/products', pageNo]">{{pageNo}}</a></li>
+      <li class="page-item"><a class="page-link" href="#"[routerLink]="['/products', currentPageNo +1 >=0 ? totalPageCount :currentPageNo+1]">Next</a></li>
+    </ul>
+  </nav>
+</div>
