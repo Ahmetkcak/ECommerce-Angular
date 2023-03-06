@@ -1,6 +1,8 @@
 import { Component, Inject ,OnInit,Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { async } from 'rxjs';
+import { SpinnerType } from 'src/app/base/base.component';
 import { List_Product_Image } from 'src/app/contracts/list_product_image';
 import { DialogService } from 'src/app/services/common/dialog.service';
 import { FileUploadOptions } from 'src/app/services/common/file-upload/file-upload.component';
@@ -20,7 +22,8 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
   constructor(dialogRef:MatDialogRef<SelectProductImageDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: SelectProductImageState,
     private productService:ProductService,
-    private dialogService:DialogService
+    private dialogService:DialogService,
+    private spinner : NgxSpinnerService
     ) {
     super(dialogRef)
    }
@@ -54,6 +57,13 @@ export class SelectProductImageDialogComponent extends BaseDialog<SelectProductI
     })
   }
 
+
+  showCase(imageId:number){
+    this.spinner.show(SpinnerType.BallAtom)
+    this.productService.changeShowcaseImage(imageId,this.data as number,()=>{
+      this.spinner.hide(SpinnerType.BallAtom);
+    })
+  }
 }
 
 

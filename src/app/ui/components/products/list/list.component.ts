@@ -15,8 +15,10 @@ export class ListComponent implements OnInit {
   totalPageCount: number;
   pageSize : number = 12;
   pageList : number[] = [];
+  url : string = "https://ecommerce3.blob.core.windows.net";
 
   produtcs: List_Product[];
+  
 
   constructor(
     private productService: ProductService,
@@ -35,9 +37,21 @@ export class ListComponent implements OnInit {
           (errorMessage) => {}
         );
       this.produtcs = data.products;
+      this.produtcs = this.produtcs.map<List_Product>(p=>{;
+        const listProduct:List_Product = {
+          id:p.id,
+          createdDate:p.createdDate,
+          imagePath:`${this.url}/${p.productImage.length ? p.productImage.find(p=>p.showcase).path : "abc"}`,
+          name:p.name,
+          price:p.price,
+          stock:p.stock,
+          updatedDate:p.updatedDate,
+          productImage:p.productImage
+        };
+        return listProduct;
+      })
       this.totalProductCount = data.totalCount;
       this.totalPageCount = Math.ceil(this.totalProductCount / this.pageSize);
-
       this.pageList = [];
 
       if (this.currentPageNo - 3 <= 0)

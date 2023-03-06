@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { firstValueFrom, Observable } from 'rxjs';
+import { firstValueFrom, lastValueFrom, Observable } from 'rxjs';
 import { Add_Product } from 'src/app/contracts/Add_Product';
 import { List_Product } from 'src/app/contracts/list_products';
 import { List_Product_Image } from 'src/app/contracts/list_product_image';
@@ -33,15 +33,11 @@ export class ProductService {
 
 
 async listProducts(page: number = 0, size: number = 5, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<{ totalCount: number; products: List_Product[] }> {
-  const promiseData: Promise<{ totalCount: number; products: List_Product[] }> = this.httpClientService.get<{ totalCount: number; products: List_Product[] }>({
+  const promiseData: Promise<{ totalCount: number; products: List_Product[] }> = lastValueFrom(this.httpClientService.get<{ totalCount: number; products: List_Product[] }>({
     controller: "products",
     queryString: `page=${page}&size=${size}`
-  }).toPromise();
-
-  promiseData.then(d => successCallBack())
-    .catch((errorResponse: HttpErrorResponse) => errorCallBack(errorResponse.message))
-
-  return await promiseData;
+  }));
+  return promiseData;
 }
 
 async delete(id:number){
@@ -68,5 +64,15 @@ async deleteProductImage(id:number,imageId:number,callBack?:() => void){
   },id)
   await firstValueFrom(deleteObservale);
   callBack();
+}
+
+async changeShowcaseImage(imageId:number,productId:number,successCallBack?:()=>void):Promise<void>{
+  const changeShowcaseImageObservable = this.httpClientService.get({
+    controller:"products",
+    action:"ChangeShowCaseImage",
+    queryString:`imageId=${imageId}&productId=${productId}`
+  })
+  await firstValueFrom(changeShowcaseImageObservable);
+  successCallBack();
 }
 }
