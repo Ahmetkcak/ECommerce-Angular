@@ -1,6 +1,6 @@
 export class List_Basket_Item {
     basketItemId:number;
-    name:string;
+    productName:string;
     price:number;
     quantity:number;
 }

@@ -33,7 +33,7 @@ export class ProductService {
 
 
 async listProducts(page: number = 0, size: number = 5, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<{ totalCount: number; products: List_Product[] }> {
-  const promiseData: Promise<{ totalCount: number; products: List_Product[] }> = lastValueFrom(this.httpClientService.get<{ totalCount: number; products: List_Product[] }>({
+  const promiseData: Promise<{ totalCount: number; products: List_Product[] }> = firstValueFrom(this.httpClientService.get<{ totalCount: number; products: List_Product[] }>({
     controller: "products",
     queryString: `page=${page}&size=${size}`
   }));

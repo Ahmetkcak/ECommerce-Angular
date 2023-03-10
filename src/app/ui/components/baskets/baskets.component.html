@@ -12,16 +12,16 @@
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Product</th>
+                <th scope="col">Product Name</th>
                 <th scope="col">Price</th>
                 <th scope="col">Quantity</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              <tr class="{{basketItem.basketItemId}}" *ngFor="let basketItem of basketItems; let i = index ">
+              <tr  *ngFor="let basketItem of basketItems; let i = index ">
                 <th scope="row">{{i+1}}</th>
-                <td>{{basketItem.name}}</td>
+                <td>{{basketItem.productName}}</td>
                 <td>{{basketItem.price}}</td>
                 <td>
                   <input type="number" [value]="basketItem.quantity" data-id="{{basketItem.basketItemId}}" style="width:60px;" (change)="changeQuantity($event)"/>
