@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { List_Basket_Item } from 'src/app/contracts/basket/list_basket_item';
+import { Update_Basket_Item } from 'src/app/contracts/basket/update_basket_item';
+import { BasketService } from 'src/app/services/common/models/basket.service';
+
+declare var $:any;
 
 @Component({
   selector: 'app-baskets',
@@ -7,9 +12,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BasketsComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private basketService:BasketService
+  ) { }
 
-  ngOnInit(): void {
+  basketItems :List_Basket_Item[];
+
+  async ngOnInit():Promise<void> {
+    this.basketItems = await this.basketService.get()
   }
 
+  async changeQuantity(object:any){
+    const basketItemId =  object.target.attributes["id"].value
+    const quantity : number = object.target.value
+    const basketItem : Update_Basket_Item = new Update_Basket_Item();
+    basketItem.basketItemId = basketItemId;
+    basketItem.quantity = quantity;
+    await this.basketService.updateQuantity(basketItem);
+  }
+
+  async removeBasketItem(basketItemId:number){
+    $("."+basketItemId).fadeOut(500);
+    await this.basketService.remove(basketItemId);
+  }
 }

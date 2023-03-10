@@ -9,6 +9,9 @@ import { CommonModule } from '@angular/common';
   imports: [
     CommonModule,
     ComponentsModule
+  ],
+  exports : [
+    ComponentsModule
   ]
 })
 export class UiModule { }

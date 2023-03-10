@@ -14,6 +14,9 @@ import { BasketsComponent } from './baskets.component';
     RouterModule.forChild([
       {path:"",component:BasketsComponent}
     ])
+  ],
+  exports : [
+    BasketsComponent
   ]
 })
 export class BasketsModule { }

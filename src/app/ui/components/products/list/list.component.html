@@ -1,14 +1,14 @@
 <div class="row">
   <div class="card mt-4"style="width: 18rem; float: left; margin-left: 1rem"*ngFor="let product of produtcs">
-    <img width="250" height="250" *ngIf="!product.productImage.length" src="../../../../assets/productImage.png" class="card-img-top" alt="...">
-    <img width="250" height="250" *ngIf="product.productImage.length" src="{{product.imagePath}}" class="card-img-top" alt="...">
+    <img width="250" height="250" *ngIf="!product.productImage" src="../../../../assets/productImage.png" class="card-img-top" alt="...">
+    <!-- <img width="250" height="250" *ngIf="product.productImage.length" src="{{product.imagePath}}" class="card-img-top" alt="..."> -->
     <div class="card-body">
       <h2 class="card-title">{{ product.name }}</h2>
       <p class="card-text">
         Price : {{ product.price | currency : "₺" }} <br />
         Stock : {{ product.stock }}
       </p>
-      <a href="#" class="btn btn-primary">Add to cart</a>
+      <a class="btn btn-primary" (click)="addToBasket(product)">Add to cart</a>
     </div>
   </div>
   <nav aria-label="Page navigation example" class="mt-4">
