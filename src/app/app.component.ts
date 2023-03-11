@@ -1,7 +1,10 @@
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from './services/ui/custom-toastr.service';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AuthService } from './services/common/auth.service';
 import { Router } from '@angular/router';
+import { ComponentType, DynamicLoadComponentService } from './services/common/dynamic-load-component.service';
+import { DynamicLoadComponentDirective } from './directives/common/dynamic-load-component.directive';
+
 declare var $:any 
 
 @Component({
@@ -12,10 +15,14 @@ declare var $:any
 export class AppComponent {
   title = 'E-Commerce';
 
+  @ViewChild(DynamicLoadComponentDirective,{static:true})
+   dynamicLoadComponentDirective: DynamicLoadComponentDirective;
+
   constructor(
     public authService: AuthService,
     private toastr :CustomToastrService,
-    private router : Router
+    private router : Router,
+    private dynamicLoadComponentService:DynamicLoadComponentService
   ){
     authService.identityCheck();
   }
@@ -28,5 +35,9 @@ export class AppComponent {
       messageType:ToastrMessageType.Warning,
       position:ToastrPosition.BottomRight
     })
+  }
+
+  loadComponet(){
+    this.dynamicLoadComponentService.loadComponent(ComponentType.BaseComponent,this.dynamicLoadComponentDirective.viewContainerRef);
   }
 }
