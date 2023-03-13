@@ -16,9 +16,18 @@ export class DashboardComponent extends BaseComponent implements OnInit {
   constructor(spinner:NgxSpinnerService,private signalRService:SignalRService,private alertify:AlertifyService) {
     super(spinner);
     signalRService.start(HubUrls.ProductHub);
+    signalRService.start(HubUrls.OrderHub)
    }
 
   ngOnInit(): void {
+    this.signalRService.on(ReceiveFunctions.ProductAddedMessageReceiveFunction,message =>{
+      this.alertify.message(message,{
+        messageType:MessageType.Notify,
+        position:Position.BottomRight
+      })
+    });
+    this.showSpinner(SpinnerType.BallScaleMultiple)
+
     this.signalRService.on(ReceiveFunctions.ProductAddedMessageReceiveFunction,message =>{
       this.alertify.message(message,{
         messageType:MessageType.Notify,
