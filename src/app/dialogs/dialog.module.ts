@@ -7,6 +7,9 @@ import { FileUploadDialogComponent } from './file-upload-dialog/file-upload-dial
 import { SelectProductImageDialogComponent } from './select-product-image-dialog/select-product-image-dialog.component';
 import { FileUploadModule } from '../services/common/file-upload/file-upload.module';
 import {MatCardModule} from '@angular/material/card';
+import { OrderDetailDialogComponent } from './order-detail-dialog/order-detail-dialog.component';
+import { MatTableModule } from '@angular/material/table';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 
 
@@ -14,14 +17,17 @@ import {MatCardModule} from '@angular/material/card';
 @NgModule({
   declarations: [
     DeleteDialogComponent,
-    SelectProductImageDialogComponent
+    SelectProductImageDialogComponent,
+    OrderDetailDialogComponent
   ],
   imports: [
     CommonModule,
     MatDialogModule,
     MatButtonModule,
     FileUploadModule,
-    MatCardModule
+    MatCardModule,
+    MatTableModule,
+    MatToolbarModule
   ]
 })
 export class DialogModule { }
