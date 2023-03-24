@@ -4,6 +4,7 @@ import { CustomerModule } from './customer/customer.module';
 import { ProductsModule } from './products/products.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AuthorizeMenuModule } from './authorize-menu/authorize-menu.module';
 
 
 
@@ -14,7 +15,8 @@ import { CommonModule } from '@angular/common';
     ProductsModule,
     CustomerModule,
     OrderModule,
-    DashboardModule
+    DashboardModule,
+    AuthorizeMenuModule
   ]
 })
 export class ComponentsModule { }

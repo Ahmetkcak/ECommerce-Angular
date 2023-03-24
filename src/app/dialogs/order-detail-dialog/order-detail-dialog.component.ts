@@ -33,8 +33,7 @@ export class OrderDetailDialogComponent extends BaseDialog<OrderDetailDialogComp
  async ngOnInit(){
     this.singleOrder = await this.orderSerivce.getByIdOrder(this.data);
     this.dataSource = this.singleOrder.basketItems;
-    this.totalPrice = this.singleOrder.basketItems.map((basketItem,index) => basketItem.price * basketItem.quantity).reduce((price,current) => price+current);
-    debugger
+    this.totalPrice = this.singleOrder.basketItems.map((basketItem,index) => basketItem.price * basketItem.quantity).reduce((price,current) => price+current);    
   }
 
   completeOrder(){
